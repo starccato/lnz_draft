@@ -99,7 +99,7 @@ To determine the optimal latent size for our VAE, we analyzed the model's perfor
 Figure \ref{fig:vae_loss} shows the reconstruction loss and KL divergence as a function of latent size.
 
 \begin{figure}[h]
-    \script{vae_loss_vs_latent_dim.py}
+    \script{plot_vae_loss_vs_latent_dim.py}
     \centering
     \includegraphics[width=0.8\columnwidth]{figures/vae_loss_vs_latent_dim.pdf}
     \caption{VAE loss components vs. latent dimension size. The optimal latent size is determined where both reconstruction loss and KL divergence stabilize.}
@@ -121,7 +121,7 @@ where $P$ and $Q$ are the distributions of the original and generated signals re
 Figure \ref{fig:mmd_comparison} shows the distribution of MMD values for our validation set.
 
 \begin{figure}[h]
-    \script{model_vs_training_distributions.py}
+    \script{plot_model_vs_training_distributions.py}
     \centering
     \includegraphics[width=0.8\columnwidth]{figures/model_vs_training_distributions.pdf}
     \caption{Distribution of MMD values between original and VAE-generated signals.}
@@ -133,7 +133,7 @@ To demonstrate the accuracy of our MCMC-based posterior estimation, we performed
 Figure \ref{fig:posterior_check} shows an example of a reconstructed signal overlaid on the original data.
 
 \begin{figure}[h]
-    \script{posterior_predictive.py}
+    \script{plot_posterior_predictive.py}
     \centering
     \includegraphics[width=0.8\columnwidth]{figures/posterior_predictive.pdf}
     \caption{Posterior predictive check: Original signal (blue) with reconstructed signal (red) and 95\% credible interval (shaded area).}
@@ -149,7 +149,7 @@ Finally, we demonstrate the effectiveness of our method by comparing the distrib
 Figure \ref{fig:snr_vs_odds} shows a scatter plot of SNR vs. Odds for both background triggers and injections.
 
 \begin{figure}[h]
-    \script{odds_vs_snr.py}
+    \script{plot_odds_vs_snr.py}
     \centering
     \includegraphics[width=0.8\columnwidth]{figures/odds_vs_snr.pdf}
     \caption{Scatter plot of SNR vs. Odds for background triggers (blue) and injections (red).}
