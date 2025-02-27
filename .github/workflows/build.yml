@@ -18,6 +18,7 @@ jobs:
       - name: Build the article PDF
         id: build
         with:
+          conda-cache-number: 1
           showyourwork-spec: git+https://github.com/showyourwork/showyourwork
         uses: showyourwork/showyourwork-action@main
         env:
