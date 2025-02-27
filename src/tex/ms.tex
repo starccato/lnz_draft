@@ -99,6 +99,7 @@ To determine the optimal latent size for our VAE, we analyzed the model's perfor
 Figure \ref{fig:vae_loss} shows the reconstruction loss and KL divergence as a function of latent size.
 
 \begin{figure}[h]
+    \script{vae_loss_vs_latent_dim.py}
     \centering
     \includegraphics[width=0.8\columnwidth]{figures/vae_loss_vs_latent_dim.pdf}
     \caption{VAE loss components vs. latent dimension size. The optimal latent size is determined where both reconstruction loss and KL divergence stabilize.}
@@ -111,15 +112,16 @@ We found that a latent dimension of $N=32$ provided the best trade-off between m
 To assess the accuracy of our VAE surrogate model, we employed the Maximum Mean Discrepancy (MMD) metric. 
 MMD allows us to compare the distribution of the original signals with that of the VAE-generated signals without requiring density estimation.
 
-\begin{equation*}
+\begin{equation}
     \text{MMD}^2(P,Q) = \mathbb{E}_{x,x'\sim P}[k(x,x')] + \mathbb{E}_{y,y'\sim Q}[k(y,y')] - 2\mathbb{E}_{x\sim P,y\sim Q}[k(x,y)]
-\end{equation*}
+\end{equation}
 
 where $P$ and $Q$ are the distributions of the original and generated signals respectively, and $k(\cdot,\cdot)$ is a kernel function.
 
 Figure \ref{fig:mmd_comparison} shows the distribution of MMD values for our validation set.
 
 \begin{figure}[h]
+    \script{model_vs_training_distributions.py}
     \centering
     \includegraphics[width=0.8\columnwidth]{figures/model_vs_training_distributions.pdf}
     \caption{Distribution of MMD values between original and VAE-generated signals.}
@@ -131,6 +133,7 @@ To demonstrate the accuracy of our MCMC-based posterior estimation, we performed
 Figure \ref{fig:posterior_check} shows an example of a reconstructed signal overlaid on the original data.
 
 \begin{figure}[h]
+    \script{posterior_predictive.py}
     \centering
     \includegraphics[width=0.8\columnwidth]{figures/posterior_predictive.pdf}
     \caption{Posterior predictive check: Original signal (blue) with reconstructed signal (red) and 95\% credible interval (shaded area).}
@@ -146,6 +149,7 @@ Finally, we demonstrate the effectiveness of our method by comparing the distrib
 Figure \ref{fig:snr_vs_odds} shows a scatter plot of SNR vs. Odds for both background triggers and injections.
 
 \begin{figure}[h]
+    \script{odds_vs_snr.py}
     \centering
     \includegraphics[width=0.8\columnwidth]{figures/odds_vs_snr.pdf}
     \caption{Scatter plot of SNR vs. Odds for background triggers (blue) and injections (red).}
