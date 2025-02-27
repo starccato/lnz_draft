@@ -3,6 +3,7 @@
 **/.showyourwork*
 
 .idea
+*.DS_Store
 
 # Showyourwork output files
 /*.pdf
