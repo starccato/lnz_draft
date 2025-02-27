@@ -7,51 +7,177 @@
 
 % Title
 \title{An open source scientific article}
+\title{VAE-based Surrogate Models to \\compute ranking statistics for \\stellar core-collapse gravitational waves}
 
 % Author list
-\author{@starccato}
+\author{NZ gravity}
 
 % Abstract with filler text
 \begin{abstract}
-    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-    Ut purus elit, vestibulum ut, placerat ac, adipiscing vitae, felis.
-    Curabitur dictum gravida mauris, consectetuer id, vulputate a, magna.
-    Donec vehicula augue eu neque, morbi tristique senectus et netus et.
-    Mauris ut leo, cras viverra metus rhoncus sem, nulla et lectus vestibulum.
-    Phasellus eu tellus sit amet tortor gravida placerat.
-    Integer sapien est, iaculis in, pretium quis, viverra ac, nunc.
-    Praesent eget sem vel leo ultrices bibendum.
-    Aenean faucibus, morbi dolor nulla, malesuada eu, pulvinar at, mollis ac.
-    Curabitur auctor semper nulla donec varius orci eget risus.
-    Duis nibh mi, congue eu, accumsan eleifend, sagittis quis, diam.
-    Duis eget orci sit amet orci dignissim rutrum.
+    We introduce a novel methodology that employs Variational Autoencoder (VAE) to compute Bayesian odds for use as a ranking statistic. 
+    Analysis with simulated data shows that this VAE-based framework offers robust signal-noise discrimination, presenting a promising alternative to conventional signal-to-noise ratio ranking statistics. 
+    While we focus on core-collapse gravitational wave signals, our methodology is generalizable and could potentially enhance sensitivity in searches for various types of GW signals. 
+    This work serves as a proof-of-concept, illustrating how machine learning surrogates combined with Bayesian analysis can improve signal-noise discrimination in GW astronomy.
 \end{abstract}
 
 % Main body with filler text
 \section{Introduction}
 \label{sec:intro}
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-Ut purus elit, vestibulum ut, placerat ac, adipiscing vitae, felis.
-Curabitur dictum gravida mauris, consectetuer id, vulputate a, magna.
-Donec vehicula augue eu neque, morbi tristique senectus et netus et.
-Mauris ut leo, cras viverra metus rhoncus sem, nulla et lectus vestibulum.
-Phasellus eu tellus sit amet tortor gravida placerat.
-Integer sapien est, iaculis in, pretium quis, viverra ac, nunc.
-Praesent eget sem vel leo ultrices bibendum.
-Aenean faucibus, morbi dolor nulla, malesuada eu, pulvinar at, mollis ac.
-Curabitur auctor semper nulla donec varius orci eget risus.
-Duis nibh mi, congue eu, accumsan eleifend, sagittis quis, diam.
-Duis eget orci sit amet orci dignissim rutrum.
+Gravitational waves from stellar core-collapse supernovae (CCSNe) events carry crucial information about the dynamics of supernovae and XYZ~\cite{}. 
+However, detecting these signals remains challenging due to their complex waveforms and the presence of instrumental noise transients (glitches) in gravitational wave detectors~\cite{}.
 
-Nam dui ligula, fringilla a, euismod sodales, sollici- tudin vel, wisi.
-Morbi auctor lorem non justo, nam lacus libero, pretium at, lobortis vitae.
-Donec aliquet, tortor sed accumsan bibendum, erat ligula aliquet magna.
-Morbi ac orci et nisl hendrerit mollis, suspendisse ut massa, cras nec ante.
-Pellentesque a nulla cum sociis natoque penatibus et magnis dis parturient.
-Aliquam tincidunt urna, nulla ullamcorper vestibulum turpis.
-Pellentesque cursus luctus mauris \citep{Luger2021}.
+Core-collapse supernovae (CCSNe) are among the most energetic events in the universe, marking the death of massive stars. 
+While they are readily observable in the electromagnetic spectrum, with their optical brightness often outshining entire galaxies, the gravitatioal wave (GW) signals from these events remain elusive~\cite{}. 
+The GW emission occurs in the core of the collapsing star, providing direct information about the collapse dynamics, rotation, and the equation of state of nuclear matter at extreme densities~\cite{}.
 
+The detection of GWs from CCSNe poses significant challenges:
+\begin{itemize}
+    \item \textbf{Signal complexity: } Unlike the well-modeled chirp signals from compact binary coalescences, CCSN GW signals are highly complex and variable, depending on factors such as the progenitor star's mass, rotation, and the nuclear equation of state~\cite{}.
+    \item \textbf{Signal rarity:} Given the expected rate of nearby supernovae, detections are expected to be infrequent, making each potential signal highly valuable~\cite{}.
+    \item \textbf{Detector noise:} Gravitational wave detectors are susceptible to various sources of noise, including instrumental ``glitches'' that can mimic short-duration astrophysical signals~\cite{}.
+\end{itemize}
+
+To address the issue of glitches, methods like \textsc{BayesWave} have been developed, which use a wavelet-based approach to model both signals and glitches, allowing for robust signal-glitch discrimination~\cite{}.
+
+\citet{Isi:2018:PhRvD} demonstrated the use of a Bayesian Coherence Ratio (BCR) to distinguish between coherent gravitational wave signals and incoherent glitches across multiple detectors. Separately, \citet{Eccleston:2024:PhRvD} demonstrated the use of Generative Adversarial Networks (GANs) as surrogates for stellar core-collapse gravitational wave signals.
+
+
+In this paper, we combine and extend these approaches by:
+\begin{itemize}
+    \item Developing a Variational Autoencoder (VAE) as a surrogate model for stellar core-collapse gravitational waves.
+    \item Utilizing the VAE's continuous latent space for a Bayesian evidence computation for various hypotheses (signal, noise-only, and glitch).
+    \item Introducing a new ranking statistic based on evidence ratios, analogous to the BCR but for single-detector analysis.
+\end{itemize}
+
+This approach combines the strengths of machine learning techniques in modeling complex waveforms with the statistical rigor of Bayesian analysis. 
+While we focus on CCSNe signals in this work, the method is generalizable and could be adapted for other types of GW signals.
+
+Our goal is to demonstrate the potential usage of VAEs to enhancing traditional matched-filter style GW searches, particularly for complex, short-duration signals like those from CCSNe. 
+By providing a fast way of distinguish between genuine signals and noise transients, this approach could contribute to future detection strategies in gravitational wave astronomy.
+
+
+\section{Methodology}
+\subsection{VAE Surrogate Model}
+We train a Variational Autoencoder on a dataset of simulated stellar core-collapse gravitational wave signals. 
+The VAE encodes the high-dimensional waveforms into a lower-dimensional latent space, allowing for efficient representation and manipulation of the signals.
+
+\subsection{Bayesian Evidence Computation}
+Using the VAE surrogate, we compute the Bayesian evidence for three hypotheses:
+\begin{itemize}
+    \item \(H_S\): The data contains a gravitational wave signal
+    \item \(H_N\): The data contains only Gaussian noise
+    \item \(H_G\): The data contains a sine-Gaussian glitch
+\end{itemize}
+
+The evidence for each hypothesis is given by:
+\begin{equation}
+    Z_i = Z(d|H_i) = \int \mathcal{L}(d|\theta, H_i)\,  \pi(\theta|H_i) d\theta\ ,
+\end{equation}
+
+where $d$ is the data, $\theta$ are the model parameters, and $i \in \{S, N, G\}$.
+
+
+To compute these evidences, we employ a Markov Chain Monte Carlo (MCMC) sampler in conjunction with the stepping stone method~\cite{}. 
+The MCMC sampler efficiently explores the parameter space, while the stepping stone method provides a robust estimation of the evidence by constructing a path of intermediate distributions between the prior and the posterior~\cite{}. 
+
+
+\subsection{Odds Ratio as Ranking Statistic}
+We define our ranking statistic as the odds ratio between the signal hypothesis and the alternative hypotheses:
+
+\begin{equation}
+\mathcal{O} = \frac{Z_S}{Z_N + Z_G}    
+\end{equation}
+
+This statistic is analogous to the BCR introduced by \citet{Isi:2018:PhRvD}, but applied to single-detector analysis.
+
+\section{Results}
+
+
+\subsection{VAE Model Architecture}
+To determine the optimal latent size for our VAE, we analyzed the model's performance across various latent dimensions. 
+Figure \ref{fig:vae_loss} shows the reconstruction loss and KL divergence as a function of latent size.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\columnwidth]{vae_loss_plot.png}
+    \caption{VAE loss components vs. latent dimension size. The optimal latent size is determined where both reconstruction loss and KL divergence stabilize.}
+    \label{fig:vae_loss}
+\end{figure}
+
+We found that a latent dimension of $N=32$ provided the best trade-off between model complexity and reconstruction accuracy.
+
+\subsection{VAE Surrogate Model Accuracy}
+To assess the accuracy of our VAE surrogate model, we employed the Maximum Mean Discrepancy (MMD) metric. 
+MMD allows us to compare the distribution of the original signals with that of the VAE-generated signals without requiring density estimation.
+
+\begin{equation}
+    \text{MMD}^2(P,Q) = \mathbb{E}_{x,x'\sim P}[k(x,x')] + \mathbb{E}_{y,y'\sim Q}[k(y,y')] - 2\mathbb{E}_{x\sim P,y\sim Q}[k(x,y)]
+\end{equation}
+
+where $P$ and $Q$ are the distributions of the original and generated signals respectively, and $k(\cdot,\cdot)$ is a kernel function.
+
+Figure \ref{fig:mmd_comparison} shows the distribution of MMD values for our validation set.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\columnwidth]{mmd_comparison.png}
+    \caption{Distribution of MMD values between original and VAE-generated signals.}
+    \label{fig:mmd_comparison}
+\end{figure}
+
+\subsection{Posterior Estimation Accuracy}
+To demonstrate the accuracy of our MCMC-based posterior estimation, we performed posterior predictive checks on a set of test signals. 
+Figure \ref{fig:posterior_check} shows an example of a reconstructed signal overlaid on the original data.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\columnwidth]{posterior_check.png}
+    \caption{Posterior predictive check: Original signal (blue) with reconstructed signal (red) and 95\% credible interval (shaded area).}
+    \label{fig:posterior_check}
+\end{figure}
+
+We also calculated the coverage probability of the 95\% credible intervals for our test set, achieving a coverage of XX\%.
+
+\subsection{SNR vs Odds Comparison}
+
+
+Finally, we demonstrate the effectiveness of our method by comparing the distribution of our odds ratio $\mathcal{O}$ to the traditional SNR for both background triggers and simulated injections. 
+Figure \ref{fig:snr_vs_odds} shows a scatter plot of SNR vs. Odds for both background triggers and injections.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\columnwidth]{snr_vs_odds.png}
+    \caption{Scatter plot of SNR vs. Odds for background triggers (blue) and injections (red).}
+    \label{fig:snr_vs_odds}
+\end{figure}
+
+To quantify the improvement, we calculated the area under the ROC curve (AUC) for both methods:
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        Method & AUC & Improvement \\
+        \hline
+        SNR & 0.XX & - \\
+        Odds Ratio & 0.YY & ZZ\% \\
+        \hline
+    \end{tabular}
+    \caption{Comparison of AUC values for SNR and Odds Ratio methods.}
+    \label{tab:auc_comparison}
+\end{table}
+
+Our results show that the odds ratio $\mathcal{O}$ provides better separation between background triggers and true signals compared to SNR, as evidenced by the larger distance between the respective distributions.
+
+\section{Discussion and Future Work}
+The improved separation between background and signal distributions using our VAE-based odds ratio suggests that this method could enhance the sensitivity of gravitational wave searches for stellar core-collapse events. Future work will focus on extending this approach to multi-detector coherence analysis, directly comparable to the original BCR method.
+
+\section{Conclusion}
+We have presented a novel approach to gravitational wave detection from stellar core-collapse events, combining VAE surrogate modeling with Bayesian evidence computation. Our method shows promise in improving the distinction between genuine signals and noise transients, potentially increasing the sensitivity of future gravitational wave searches.
+
+
+    
 \bibliography{bib}
 
 \end{document}
