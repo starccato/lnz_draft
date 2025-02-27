@@ -100,7 +100,7 @@ Figure \ref{fig:vae_loss} shows the reconstruction loss and KL divergence as a f
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\columnwidth]{vae_loss_plot.png}
+    \includegraphics[width=0.8\columnwidth]{figures/vae_loss_vs_latent_dim.pdf}
     \caption{VAE loss components vs. latent dimension size. The optimal latent size is determined where both reconstruction loss and KL divergence stabilize.}
     \label{fig:vae_loss}
 \end{figure}
@@ -111,9 +111,9 @@ We found that a latent dimension of $N=32$ provided the best trade-off between m
 To assess the accuracy of our VAE surrogate model, we employed the Maximum Mean Discrepancy (MMD) metric. 
 MMD allows us to compare the distribution of the original signals with that of the VAE-generated signals without requiring density estimation.
 
-\begin{equation}
+\begin{equation*}
     \text{MMD}^2(P,Q) = \mathbb{E}_{x,x'\sim P}[k(x,x')] + \mathbb{E}_{y,y'\sim Q}[k(y,y')] - 2\mathbb{E}_{x\sim P,y\sim Q}[k(x,y)]
-\end{equation}
+\end{equation*}
 
 where $P$ and $Q$ are the distributions of the original and generated signals respectively, and $k(\cdot,\cdot)$ is a kernel function.
 
@@ -121,7 +121,7 @@ Figure \ref{fig:mmd_comparison} shows the distribution of MMD values for our val
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\columnwidth]{mmd_comparison.png}
+    \includegraphics[width=0.8\columnwidth]{figures/model_vs_training_distributions.pdf}
     \caption{Distribution of MMD values between original and VAE-generated signals.}
     \label{fig:mmd_comparison}
 \end{figure}
@@ -132,7 +132,7 @@ Figure \ref{fig:posterior_check} shows an example of a reconstructed signal over
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\columnwidth]{posterior_check.png}
+    \includegraphics[width=0.8\columnwidth]{figures/posterior_predictive.pdf}
     \caption{Posterior predictive check: Original signal (blue) with reconstructed signal (red) and 95\% credible interval (shaded area).}
     \label{fig:posterior_check}
 \end{figure}
@@ -147,7 +147,7 @@ Figure \ref{fig:snr_vs_odds} shows a scatter plot of SNR vs. Odds for both backg
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\columnwidth]{snr_vs_odds.png}
+    \includegraphics[width=0.8\columnwidth]{figures/odds_vs_snr.pdf}
     \caption{Scatter plot of SNR vs. Odds for background triggers (blue) and injections (red).}
     \label{fig:snr_vs_odds}
 \end{figure}
