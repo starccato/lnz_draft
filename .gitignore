@@ -2,6 +2,8 @@
 **/.snakemake
 **/.showyourwork*
 
+.idea
+
 # Showyourwork output files
 /*.pdf
 report.html
