@@ -6,3 +6,5 @@ dependencies:
       - matplotlib==3.4.3
       - starccato_jax
       - starccato_sampler
+      - seaborn
+      - pandas
