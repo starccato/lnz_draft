@@ -4,9 +4,6 @@ import paths
 import pandas as pd
 import dataclasses
 import seaborn as sns
-from matplotlib.colors import ListedColormap
-
-COLORPALETTE = ["tab:orange", "tab:gray"]
 
 
 @dataclasses.dataclass
@@ -47,7 +44,7 @@ def load_data():
 def main():
     data = load_data()
     sns_plot = sns.jointplot(
-        data=data, x="SNR", y="Bayes Factor", hue="Dataset", alpha=0.5, palette=COLORPALETTE,
+        data=data, x="SNR", y="Bayes Factor", hue="Dataset", alpha=0.5, palette=["tab:orange", "tab:gray"],
         kind="kde", levels=4, fill=True, height=4, space=0, xlim=(0, 20), ylim=(-10, 10),
         legend=False
     )
@@ -66,8 +63,6 @@ def main():
         ha="center", va="center", rotation=30
     )
     plt.savefig(paths.figures / "odds_vs_snr.pdf")
-
-
 
 
 if __name__ == '__main__':
