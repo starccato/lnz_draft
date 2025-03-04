@@ -43,16 +43,17 @@ def load_data():
 
 def main():
     data = load_data()
+    colors = ["tab:orange", "tab:gray"]
     sns_plot = sns.jointplot(
-        data=data, x="SNR", y="Bayes Factor", hue="Dataset", alpha=0.5, palette=["tab:orange", "tab:gray"],
+        data=data, x="SNR", y="Bayes Factor", hue="Dataset", alpha=0.5, palette=colors,
         kind="kde", levels=4, fill=True, height=4, space=0, xlim=(0, 20), ylim=(-10, 10),
         legend=False
     )
     sns_plot.set_axis_labels(r"$\rho_{\text{SNR}}$", r"$\rho_{\text{BF}}$")
     sns_plot.ax_marg_x.legend(
         handles=(
-            plt.Line2D([0], [0], color=COLORPALETTE[0], lw=2, label="Injection"),
-            plt.Line2D([0], [0], color=COLORPALETTE[1], lw=2, label="Background"),
+            plt.Line2D([0], [0], color=colors[0], lw=2, label="Injection"),
+            plt.Line2D([0], [0], color=colors[1], lw=2, label="Background"),
         ),
         frameon=False, loc="upper left", title=None,
         bbox_to_anchor=(-0.2, 1.05),
