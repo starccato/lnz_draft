@@ -49,7 +49,7 @@ def main():
         kind="kde", levels=4, fill=True, height=4, space=0, xlim=(0, 20), ylim=(-10, 10),
         legend=False
     )
-    sns_plot.set_axis_labels(r"$\rho_{\rm{SNR}}$", r"$\rho_{\rm{BF}$")
+    sns_plot.set_axis_labels(r"$\rho_{\rm{SNR}}$", r"$\rho_{\rm{BF}}$")
     sns_plot.ax_marg_x.legend(
         handles=(
             plt.Line2D([0], [0], color=colors[0], lw=2, label="Injection"),
