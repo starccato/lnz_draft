@@ -3,12 +3,12 @@ dependencies:
   - conda-forge::pip=21.0.1
   - conda-forge::python=3.9
   - pip:
-      - matplotlib==3.4.3
+      - arviz>=0.18.0
       - starccato_jax
       - starccato_sampler
       - seaborn
       - numpy>=1.23.0
       - scipy>=1.9.0
       - pandas>=1.5.0
-      - arviz>=0.15
+
 
